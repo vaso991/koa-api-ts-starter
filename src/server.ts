@@ -2,15 +2,18 @@ import 'reflect-metadata';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import cors from '@koa/cors';
-import path from 'path';
+import dotenv from 'dotenv-flow';
 import { AppRoutes } from './routes';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { ErrorMiddleware } from './middlewares/error.middleware';
 
+dotenv.config();
+
 async function run() {
   // await initializeDb();
   const app = new Koa();
-  app.keys = [process.env.COOKIE_KEY];
+  
+  app.keys = [process.env.COOKIE_KEY || 'secret'];
   app.use(
     cors({
       credentials: true,

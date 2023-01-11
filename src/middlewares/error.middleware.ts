@@ -1,6 +1,7 @@
 import { Next, ParameterizedContext } from 'koa';
 import { AxiosError } from 'axios';
 import { HttpError } from 'koa';
+import { ZodError } from 'zod';
 
 export const ErrorMiddleware =
   () => (context: ParameterizedContext, next: Next) =>
@@ -39,6 +40,12 @@ const errorFormatter = (error: Error) : IFormattedError => {
         errorResponse.message = error.response.data.message;
       }
     }
+  } else if (error instanceof ZodError) {
+    errorResponse.status = 400;
+    errorResponse.name = 'ValidationError';
+    errorResponse.message = 'Validation Error';
+    errorResponse.reason = error.issues;
+    errorResponse.details = error.format();
   }
   return errorResponse;
 };
