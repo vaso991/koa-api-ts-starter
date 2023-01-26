@@ -3,7 +3,7 @@ import Logger from 'koa-pino-logger';
 import { format } from 'date-fns';
 
 export const LoggerMiddleware = (app: Koa) => {
-  let transport;  
+  let transport;
   if (!process.env.NODE_ENV) {
     transport = {
       target: 'pino-pretty',
@@ -47,7 +47,7 @@ export const LoggerMiddleware = (app: Koa) => {
         },
       },
       transport,
-    })
+    }),
   );
 
   app.use(async (context, next) =>
@@ -55,6 +55,6 @@ export const LoggerMiddleware = (app: Koa) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       context.res.body = context.body;
-    })
+    }),
   );
 };

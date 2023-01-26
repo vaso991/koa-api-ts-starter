@@ -25,7 +25,8 @@
     },
     "include": [
       "./src/**/*",
-      ".eslintrc.js"
+      ".eslintrc.js",
+      "knexfile.ts"
     ],
     "linterOptions": {
       "exclude": []

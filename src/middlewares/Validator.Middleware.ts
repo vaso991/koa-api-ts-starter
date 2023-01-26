@@ -1,5 +1,5 @@
 import { Context, Next } from 'koa';
-import { z, AnyZodObject, ZodError } from "zod";
+import { AnyZodObject } from 'zod';
 
 interface IValidatorProps {
   query?: AnyZodObject;

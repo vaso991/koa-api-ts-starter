@@ -2,11 +2,13 @@ import { Next, ParameterizedContext } from 'koa';
 import { AxiosError } from 'axios';
 import { HttpError } from 'koa';
 import { ZodError } from 'zod';
+import { DBError } from 'objection';
 
 export const ErrorMiddleware =
   () => (context: ParameterizedContext, next: Next) =>
     next().catch((error) => {
       const response = errorFormatter(error);
+      console.error(error);
       context.body = response;
       context.status = response.status || 500;
     });
@@ -17,9 +19,9 @@ interface IFormattedError {
   status: number;
   message: string;
   reason: object;
-  details: string | object | null | undefined
+  details: string | object | null | undefined;
 }
-const errorFormatter = (error: Error) : IFormattedError => {
+const errorFormatter = (error: Error): IFormattedError => {
   const errorResponse: IFormattedError = {
     name: error.name,
     error: true,
@@ -46,6 +48,9 @@ const errorFormatter = (error: Error) : IFormattedError => {
     errorResponse.message = 'Validation Error';
     errorResponse.reason = error.issues;
     errorResponse.details = error.format();
+  } else if (error instanceof DBError) {
+    errorResponse.name = 'Error';
+    errorResponse.message = 'Error';
   }
   return errorResponse;
 };
