@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf dist && npx tsc",
+    "build": "rimraf dist && node esbuild.config.js",
     "start": "node dist/server.js",
     "dev": "nodemon --watch src -e ts,tsx --exec ts-node src/Server.ts",
     "lint": "eslint ."
@@ -41,6 +41,8 @@
     "@types/node": "^18.8.3",
     "@typescript-eslint/eslint-plugin": "^5.39.0",
     "@typescript-eslint/parser": "^5.39.0",
+    "esbuild": "^0.17.5",
+    "esbuild-node-externals": "^1.6.0",
     "eslint": "^8.25.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
