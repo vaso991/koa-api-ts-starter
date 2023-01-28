@@ -4,7 +4,7 @@
 
 With NPM:
 ```
-npm create koa-ts-api app-name
+npm create koa-ts-api@latest app-name
 ```
 
 With Yarn:
