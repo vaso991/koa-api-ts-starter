@@ -18,7 +18,7 @@ class Server {
 
   public static async init() {
     const server = new Server();
-    await Db.init();
+    Db.init();
     server.initializeMiddlewares();
     server.initializeRoutes();
     server.start();
