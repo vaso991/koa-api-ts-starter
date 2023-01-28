@@ -1,10 +1,11 @@
 import Koa from 'koa';
 import Logger from 'koa-pino-logger';
 import { format } from 'date-fns';
+import { AppEnv } from '../App.Env';
 
 export const LoggerMiddleware = (app: Koa) => {
   let transport;
-  if (!process.env.NODE_ENV) {
+  if (AppEnv.NODE_ENV === 'development') {
     transport = {
       target: 'pino-pretty',
       options: {

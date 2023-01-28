@@ -1,5 +1,4 @@
 import Router from 'koa-router';
-import { z } from 'zod';
 import { ValidatorMiddleware } from '../../middlewares/Validator.Middleware';
 import { UserController } from './User.Controller';
 import { UserIdSchema, UserSchema, UserUpdateSchema } from './User.Schema';

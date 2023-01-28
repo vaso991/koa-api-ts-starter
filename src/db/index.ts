@@ -1,6 +1,7 @@
 import Knex from 'knex';
 import { Model } from 'objection';
 import path from 'path';
+import { AppEnv } from '../App.Env';
 
 export class Db {
   private static knexInstance: ReturnType<typeof Knex>;
@@ -10,7 +11,7 @@ export class Db {
     }
     const knex = Knex({
       client: 'pg',
-      connection: process.env.DATABASE_URL,
+      connection: AppEnv.DATABASE_URL,
       debug: false,
     });
     await knex.migrate.latest({

@@ -2,13 +2,12 @@ import 'reflect-metadata';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import cors from '@koa/cors';
-import dotenv from 'dotenv-flow';
-import { AppRoutes } from './routes';
+import { AppRoutes } from './Routes';
 import { LoggerMiddleware } from './middlewares/Logger.Middleware';
 import { ErrorMiddleware } from './middlewares/Error.Middleware';
 import { Db } from './db';
+import { AppEnv } from './App.Env';
 
-dotenv.config();
 
 class Server {
   private app: Koa;
@@ -25,7 +24,7 @@ class Server {
   }
 
   private initializeMiddlewares() {
-    this.app.keys = [process.env.COOKIE_KEY || 'secret'];
+    this.app.keys = [AppEnv.COOKIE_KEY];
     this.app.use(
       cors({
         credentials: true,
@@ -42,9 +41,8 @@ class Server {
   }
 
   private start() {
-    const PORT = process.env.PORT;
-    return this.app.listen(PORT, () => {
-      console.log(`Server started on port http://localhost:${PORT}`);
+    return this.app.listen(AppEnv.PORT, () => {
+      console.log(`Server started on port http://localhost:${AppEnv.PORT}`);
     })
   }
 }
