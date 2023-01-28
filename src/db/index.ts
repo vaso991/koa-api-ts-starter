@@ -13,14 +13,10 @@ export class Db {
       connection: process.env.DATABASE_URL,
       debug: false,
     });
-    try {
-      await knex.migrate.latest({
-        directory: path.join(__dirname, 'migrations'),
-        loadExtensions: ['.ts', '.js'],
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    await knex.migrate.latest({
+      directory: path.join(__dirname, 'migrations'),
+      loadExtensions: ['.ts', '.js'],
+    });
     Model.knex(knex);
     Db.knexInstance = knex;
     return knex;
