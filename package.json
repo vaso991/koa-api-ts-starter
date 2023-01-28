@@ -15,7 +15,7 @@
   "dependencies": {
     "@koa/cors": "^4.0.0",
     "add": "^2.0.6",
-    "axios": "^1.2.2",
+    "axios": "^1.2.5",
     "date-fns": "^2.29.3",
     "dotenv-flow": "^3.2.0",
     "http-status-codes": "^2.2.0",
