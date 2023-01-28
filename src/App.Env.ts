@@ -4,7 +4,7 @@ dotenv.config();
 
 const AppEnvSchema = z.object({
     NODE_ENV: z.enum(['development', 'test', 'production']).optional().default('development'),
-    PORT: z.preprocess((val) => Number(val), z.number()).default(8080),
+    PORT: z.coerce.number().default(8080),
     COOKIE_KEY: z.string().default('secret'),
     DATABASE_URL: z.string()
 });
