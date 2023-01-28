@@ -1,17 +1,27 @@
 # koa-ts-getting-started
 
-### Build
+## Create Project:
 
-To build all apps and packages, run the following command:
-
+With NPM:
 ```
-yarn run build
+npm create koa-ts-api app-name
 ```
 
-### Develop
-
-To develop all apps and packages, run the following command:
-
+With Yarn:
 ```
-yarn run dev
+yarn create koa-ts-api app-name
+```
+
+With PNPM:
+```
+pnpm create koa-ts-api app-name
+```
+
+
+## Setup
+```
+git clone https://github.com/vaso991/koa-api-ts-starter.git
+cd koa-api-ts-starter
+npm install
+npm run dev
 ```
