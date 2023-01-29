@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import { ValidatorMiddleware } from '../../middlewares/Validator.Middleware';
+import { ZodValidator } from 'koa-router-zod-swagger';
 import { UserController } from './User.Controller';
 import { UserIdSchema, UserSchema, UserUpdateSchema } from './User.Schema';
 
@@ -11,7 +11,7 @@ router.get('/', UserController.getAllUsers);
 
 router.get(
   '/:id',
-  ValidatorMiddleware({
+  ZodValidator({
     params: UserIdSchema,
   }),
   UserController.getUserById,
@@ -19,7 +19,7 @@ router.get(
 
 router.post(
   '/',
-  ValidatorMiddleware({
+  ZodValidator({
     body: UserSchema,
   }),
   UserController.addNewUser,
@@ -27,7 +27,7 @@ router.post(
 
 router.patch(
   '/:id',
-  ValidatorMiddleware({
+  ZodValidator({
     body: UserUpdateSchema,
     params: UserIdSchema,
   }),
@@ -36,7 +36,7 @@ router.patch(
 
 router.delete(
   '/:id',
-  ValidatorMiddleware({
+  ZodValidator({
     params: UserIdSchema,
   }),
   UserController.deleteUser,
