@@ -2,15 +2,26 @@ import { Pojo, Validator, ValidatorArgs } from 'objection';
 import { AnyZodObject } from 'zod';
 
 class ObjectionZodValidatorClass extends Validator {
-  zodObject: AnyZodObject;
-  constructor(zodObject: AnyZodObject) {
+  insertZodSchema: AnyZodObject;
+  updateZodSchema?: AnyZodObject;
+  constructor(insertZodSchema: AnyZodObject, updateZodSchema?: AnyZodObject) {
     super();
-    this.zodObject = zodObject;
+    this.insertZodSchema = insertZodSchema;
+    this.updateZodSchema = updateZodSchema;
   }
-  validate(args: ValidatorArgs): Pojo {
-    const json = args.json;
-    this.zodObject.parse(json);
-    return json;
+  validate({ json, options }: ValidatorArgs): Pojo {
+    if (options.patch) {
+      if (this.updateZodSchema) {
+        return this.updateZodSchema.parse(json);
+      } else {
+        return this.insertZodSchema.pick(json).parse(json);
+      }
+    } else {
+      return this.insertZodSchema.parse(json);
+    }
   }
 }
-export const ObjectionZodValidator = (zodObject: AnyZodObject) => new ObjectionZodValidatorClass(zodObject);
+export const ObjectionZodValidator = (
+  insertZodSchema: AnyZodObject,
+  updateZodSchema?: AnyZodObject,
+) => new ObjectionZodValidatorClass(insertZodSchema, updateZodSchema);

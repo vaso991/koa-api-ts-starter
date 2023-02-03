@@ -3,16 +3,16 @@ import { z } from 'zod';
 const UserSchema = z
   .object({
     email: z.string().email(),
-    firstName: z.string(),
-    lastName: z.string(),
+    firstName: z.string().min(2),
+    lastName: z.string().min(2),
   })
   .strict();
 
 const UserUpdateSchema = z
   .object({
     email: z.string().email().optional(),
-    firstName: z.string().optional(),
-    lastName: z.string().optional(),
+    firstName: z.string().min(2).optional(),
+    lastName: z.string().min(2).optional(),
   })
   .strict();
 

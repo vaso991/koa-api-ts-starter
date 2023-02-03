@@ -1,6 +1,6 @@
 import { Model, ModelObject, Validator } from 'objection';
 import { timestampPlugin } from 'objection-timestamps';
-import { UserSchema } from '../../modules/users/User.Schema';
+import { UserSchema, UserUpdateSchema } from '../../modules/users/User.Schema';
 import { ObjectionZodValidator } from '../../utils/ObjectionZodValidator';
 
 class User extends timestampPlugin()(Model) {
@@ -17,7 +17,7 @@ class User extends timestampPlugin()(Model) {
   }
 
   static createValidator(): Validator {
-      return ObjectionZodValidator(UserSchema);
+      return ObjectionZodValidator(UserSchema, UserUpdateSchema);
   }
 }
 type IUser = ModelObject<User>;
