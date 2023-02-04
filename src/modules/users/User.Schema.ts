@@ -8,13 +8,7 @@ const UserSchema = z
   })
   .strict();
 
-const UserUpdateSchema = z
-  .object({
-    email: z.string().email().optional(),
-    firstName: z.string().min(2).optional(),
-    lastName: z.string().min(2).optional(),
-  })
-  .strict();
+const UserUpdateSchema = UserSchema.partial();
 
 const UserIdSchema = z.object({
   id: z.string().uuid(),

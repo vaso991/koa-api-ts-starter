@@ -14,7 +14,7 @@ class ObjectionZodValidatorClass extends Validator {
       if (this.updateZodSchema) {
         return this.updateZodSchema.parse(json);
       } else {
-        return this.insertZodSchema.pick(json).parse(json);
+        return this.insertZodSchema.partial().parse(json);
       }
     } else {
       return this.insertZodSchema.parse(json);
