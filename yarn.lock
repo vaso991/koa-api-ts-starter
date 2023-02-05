@@ -1688,10 +1688,10 @@ koa-pino-logger@^4.0.0:
   dependencies:
     pino-http "^6.5.0"
 
-koa-router-zod-swagger@1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/koa-router-zod-swagger/-/koa-router-zod-swagger-1.0.5.tgz#4af04433a90c024b2d1d7177f6f58ff350c57448"
-  integrity sha512-H7G+yNtu3NblgoyKTGOTnMqYJWR+ykH3u8PD7zuUbWbx2NeKTst3UpSlWVGD3wnGoEwMmDH+tDsWpaJnyBnfHA==
+koa-router-zod-swagger@1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/koa-router-zod-swagger/-/koa-router-zod-swagger-1.0.8.tgz#389c021923516a513463f4a039c7a6cf44ec2245"
+  integrity sha512-O3Sajef38AqFMTgKyj08eLQLOZqAcBFkghXFKwZMFgXb3pFP6od1hFB9HUZhPt1LbwmSHo9P6eoamlccVt8P/w==
   dependencies:
     koa2-swagger-ui "^5.7.0"
     statuses "^2.0.1"
