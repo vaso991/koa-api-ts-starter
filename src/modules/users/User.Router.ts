@@ -7,11 +7,14 @@ const router = new Router({
   prefix: '/users',
 });
 
-router.get('/', UserController.getAllUsers);
+router.get('/', ZodValidator({
+  summary: 'Get users list'
+}), UserController.getAllUsers);
 
 router.get(
   '/:id',
   ZodValidator({
+    summary: 'Get user by id',
     params: UserIdSchema,
   }),
   UserController.getUserById,
@@ -20,6 +23,7 @@ router.get(
 router.post(
   '/',
   ZodValidator({
+    summary: 'Add new user',
     body: UserSchema,
   }),
   UserController.addNewUser,
@@ -28,6 +32,7 @@ router.post(
 router.patch(
   '/:id',
   ZodValidator({
+    summary: 'Update user by id',
     body: UserUpdateSchema,
     params: UserIdSchema,
   }),
@@ -37,6 +42,7 @@ router.patch(
 router.delete(
   '/:id',
   ZodValidator({
+    summary: 'Delete user by id',
     params: UserIdSchema,
   }),
   UserController.deleteUser,
