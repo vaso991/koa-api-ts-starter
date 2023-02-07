@@ -1,4 +1,5 @@
 import { Context, Next } from 'koa';
+import { RouterContext } from 'koa-router';
 import PinoHttp, { Options as PinoOptions } from 'pino-http';
 import { IncomingMessage, ServerResponse } from 'http';
 import { format } from 'date-fns';
@@ -9,44 +10,64 @@ const PINO_OPTIONS: PinoOptions = {
     `,"time":"${format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx")}"`,
   autoLogging: {
     ignore(req: IncomingMessage) {
-      return (['/api/health'].includes(req.url || '') || req.headers.accept !== 'application/json');
+      return (
+        ['/api/health'].includes(req.url || '') ||
+        req.headers.accept !== 'application/json'
+      );
     },
   },
+  wrapSerializers: false,
   serializers: {
-    req(req: IncomingMessage & { raw: any }) {
-      const reqClone: { [key: string]: any } = { ...req };
-      reqClone.body = req.raw?.body;
-      delete reqClone.headers;
-      return reqClone;
-    },
-    res(res: ServerResponse<IncomingMessage> & { raw: any }) {
-      const resClone: { [key: string]: any } = { ...res };
-      resClone.body = res.raw?.body;
-      delete resClone.headers;
-      return resClone;
-    }
+    req: ReqSerializer,
+    res: ResSerializer,
   },
-  transport: AppEnv.NODE_ENV !== 'development' ? undefined : {
-    target: 'pino-pretty',
-    options: {
-      colorize: true
-    }
-  }
+  transport:
+    AppEnv.NODE_ENV !== 'development'
+      ? undefined
+      : {
+          target: 'pino-pretty',
+          options: {
+            colorize: true,
+          },
+        },
 };
 
 export const LoggerMiddleware = (options?: PinoOptions) => {
-  const pino = PinoHttp({... PINO_OPTIONS, ...options });
+  const pino = PinoHttp({ ...PINO_OPTIONS, ...options });
   const Logger = (ctx: Context, next: Next) => {
     // @ts-ignore
-    ctx.req.body = ctx.request.body;
+    ctx.req.ctx = ctx;
     pino(ctx.req, ctx.res);
-    return next().then(() => {
-      // @ts-ignore
-      ctx.res.body = ctx.response.body;
-    }).catch((error) => {
-      ctx.res.err = error;
-      throw error;
-    });
+    return next()
+      .then(() => {
+        // @ts-ignore
+        ctx.res.body = ctx.response.body;
+      })
+      .catch((error) => {
+        ctx.res.err = error;
+        throw error;
+      });
   };
   return Logger;
 };
+function ReqSerializer(req: IncomingMessage & { ctx: RouterContext }) {
+  const _req: { [key: string]: any } = {};
+  _req.id = req.id;
+  _req.method = req.method;
+  _req.url = req.url;
+  _req.path = req.ctx.path;
+  _req.query = req.ctx.query;
+  _req.body = req.ctx.request.body;
+  _req.remoteAddress = req.ctx.ip;
+  // _req.headers = req.ctx.headers;
+  return _req;
+}
+
+function ResSerializer(res: ServerResponse<IncomingMessage>) {
+  const _res: { [key: string]: any } = {};
+  _res.statusCode = res.statusCode;
+  // @ts-ignore
+  _res.body = res.body;
+  // _res.headers = res.getHeaders();
+  return _res;
+}
