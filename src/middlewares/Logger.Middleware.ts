@@ -4,27 +4,15 @@ import { IncomingMessage, ServerResponse } from 'http';
 import { format } from 'date-fns';
 import { AppEnv } from '../App.Env';
 
-
-const getPinoOptions = (): PinoOptions => {
-  return {
-    timestamp: () =>
-      `,"time":"${format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx")}"`,
-    autoLogging: {
-      ignore(req) {
-        return !!req.url && ['/api/health'].includes(req.url.toString());
-      },
+const PINO_OPTIONS: PinoOptions = {
+  timestamp: () =>
+    `,"time":"${format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx")}"`,
+  autoLogging: {
+    ignore(req: IncomingMessage) {
+      return (['/api/health'].includes(req.url || '') || req.headers.accept !== 'application/json');
     },
-    serializers: getSerializers(),
-    transport: AppEnv.NODE_ENV !== 'development' ? undefined : {
-      target: 'pino-pretty',
-      options: {
-        colorize: true
-      }
-    }
-  };
-};
-const getSerializers = () => {
-  return {
+  },
+  serializers: {
     req(req: IncomingMessage & { raw: any }) {
       const reqClone: { [key: string]: any } = { ...req };
       reqClone.body = req.raw?.body;
@@ -37,13 +25,17 @@ const getSerializers = () => {
       delete resClone.headers;
       return resClone;
     }
+  },
+  transport: AppEnv.NODE_ENV !== 'development' ? undefined : {
+    target: 'pino-pretty',
+    options: {
+      colorize: true
+    }
   }
-}
+};
 
-
-
-export const LoggerMiddleware = () => {
-  const pino = PinoHttp(getPinoOptions());
+export const LoggerMiddleware = (options?: PinoOptions) => {
+  const pino = PinoHttp({... PINO_OPTIONS, ...options });
   const Logger = (ctx: Context, next: Next) => {
     // @ts-ignore
     ctx.req.body = ctx.request.body;
