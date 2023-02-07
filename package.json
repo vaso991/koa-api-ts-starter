@@ -21,12 +21,12 @@
     "knex": "^2.4.2",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
-    "koa-pino-logger": "^4.0.0",
     "koa-router": "^12.0.0",
     "koa-router-zod-swagger": "1.0.9",
     "objection": "^3.0.1",
     "objection-timestamps": "^4.1.0",
     "pg": "^8.8.0",
+    "pino-http": "^8.3.3",
     "reflect-metadata": "^0.1.13",
     "zod": "^3.20.2"
   },

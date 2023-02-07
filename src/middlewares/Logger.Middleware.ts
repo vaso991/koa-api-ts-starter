@@ -1,61 +1,60 @@
-import Koa from 'koa';
-import Logger from 'koa-pino-logger';
+import { Context, Next } from 'koa';
+import PinoHttp, { Options as PinoOptions } from 'pino-http';
+import { IncomingMessage, ServerResponse } from 'http';
 import { format } from 'date-fns';
 import { AppEnv } from '../App.Env';
 
-export const LoggerMiddleware = (app: Koa) => {
-  let transport;
-  if (AppEnv.NODE_ENV === 'development') {
-    transport = {
+
+const getPinoOptions = (): PinoOptions => {
+  return {
+    timestamp: () =>
+      `,"time":"${format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx")}"`,
+    autoLogging: {
+      ignore(req) {
+        return !!req.url && ['/api/health'].includes(req.url.toString());
+      },
+    },
+    serializers: getSerializers(),
+    transport: AppEnv.NODE_ENV !== 'development' ? undefined : {
       target: 'pino-pretty',
       options: {
-        colorize: true,
-      },
-    };
-  }
-  app.use(async (context, next) => {
-    if (context.request.body) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      context.req.body = context.request.body;
+        colorize: true
+      }
     }
-    return next();
-  });
+  };
+};
+const getSerializers = () => {
+  return {
+    req(req: IncomingMessage & { raw: any }) {
+      const reqClone: { [key: string]: any } = { ...req };
+      reqClone.body = req.raw?.body;
+      delete reqClone.headers;
+      return reqClone;
+    },
+    res(res: ServerResponse<IncomingMessage> & { raw: any }) {
+      const resClone: { [key: string]: any } = { ...res };
+      resClone.body = res.raw?.body;
+      delete resClone.headers;
+      return resClone;
+    }
+  }
+}
 
-  app.use(
-    Logger({
-      timestamp: () =>
-        `,"time":"${format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx")}"`,
-      serializers: {
-        req(req) {
-          if (req.raw && req.raw.body) {
-            req.body = req.raw.body;
-          }
-          delete req.headers;
-          return req;
-        },
-        res(res) {
-          if (res.raw && res.raw.body) {
-            res.body = res.raw.body;
-          }
-          delete res.headers;
-          return res;
-        },
-      },
-      autoLogging: {
-        ignore(req) {
-          return !!req.url && ['/api/health'].includes(req.url.toString());
-        },
-      },
-      transport,
-    }),
-  );
 
-  app.use(async (context, next) =>
-    next().then(() => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
+export const LoggerMiddleware = () => {
+  const pino = PinoHttp(getPinoOptions());
+  const Logger = (ctx: Context, next: Next) => {
+    // @ts-ignore
+    ctx.req.body = ctx.request.body;
+    pino(ctx.req, ctx.res);
+    return next().then(() => {
       // @ts-ignore
-      context.res.body = context.body;
-    }),
-  );
+      ctx.res.body = ctx.response.body;
+    }).catch((error) => {
+      ctx.res.err = error;
+      throw error;
+    });
+  };
+  return Logger;
 };

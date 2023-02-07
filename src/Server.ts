@@ -31,8 +31,8 @@ class Server {
       })
     );
     this.app.use(bodyParser());
-    LoggerMiddleware(this.app);
     this.app.use(ErrorMiddleware());
+    this.app.use(LoggerMiddleware());
   }
 
   private initializeRoutes() {

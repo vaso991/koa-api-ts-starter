@@ -8,7 +8,6 @@ export const ErrorMiddleware =
   () => (context: ParameterizedContext, next: Next) =>
     next().catch((error) => {
       const response = errorFormatter(error);
-      console.error(error);
       context.body = response;
       context.status = response.status || 500;
     });
@@ -33,7 +32,7 @@ const errorFormatter = (error: Error): IFormattedError => {
   if (error instanceof HttpError) {
     errorResponse.status = error.status;
     errorResponse.message = error.message;
-    errorResponse.details = error.stack;
+    // errorResponse.details = error.stack;
   } else if (error instanceof AxiosError) {
     errorResponse.status = error.status || 500;
     if (error.response) {
