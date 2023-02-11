@@ -6,7 +6,7 @@ export async function up(knex: Knex): Promise<void> {
       .uuid('id')
       .primary()
       .unique()
-      .defaultTo(knex.raw('uuid_generate_v1()'));
+      .defaultTo(knex.raw('gen_random_uuid()'));
     table.string('email').unique();
     table.string('firstName');
     table.string('lastName');
