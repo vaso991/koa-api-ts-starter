@@ -8,7 +8,8 @@ const router = new Router({
 });
 
 router.get('/', ZodValidator({
-  summary: 'Get users list'
+  summary: 'Get users list',
+  query: UserUpdateSchema,
 }), UserController.getAllUsers);
 
 router.get(

@@ -16,4 +16,6 @@ const UserIdSchema = z.object({
 
 type IUser = z.infer<typeof UserSchema>;
 
-export { IUser, UserSchema, UserUpdateSchema, UserIdSchema };
+type IUserOptional = z.infer<typeof UserUpdateSchema>;
+
+export { IUser, IUserOptional, UserSchema, UserUpdateSchema, UserIdSchema };

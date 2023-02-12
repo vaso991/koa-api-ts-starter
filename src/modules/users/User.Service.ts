@@ -1,9 +1,9 @@
 import { User } from '../../db/models/User.Model';
-import { IUser } from './User.Schema';
+import { IUser, IUserOptional } from './User.Schema';
 
 export class UserService {
-  public static async getAllUsers(): Promise<User[]> {
-    return User.query();
+  public static async getAllUsers(query: IUserOptional = {}): Promise<User[]> {
+    return User.query().where(query);
   }
 
   public static async getUserById(id: string): Promise<User> {

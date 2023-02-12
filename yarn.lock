@@ -1669,10 +1669,10 @@ koa-convert@^2.0.0:
     co "^4.6.0"
     koa-compose "^4.1.0"
 
-koa-router-zod-swagger@1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/koa-router-zod-swagger/-/koa-router-zod-swagger-1.0.9.tgz#6e70ff1fa49e75e41e54ded17019683b2e5fd990"
-  integrity sha512-Iyj6N4a3I9855GJhtBT97N9BxRZ7Uf1OLwEB/iX4YyU+m+KCOE1l6LQho0deWHMMAihfjb3Dh7jxITMgxJ252A==
+koa-router-zod-swagger@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/koa-router-zod-swagger/-/koa-router-zod-swagger-1.0.11.tgz#173a0635354a06ad3dd779c63339c0ed72d407a2"
+  integrity sha512-CZxCJmqdMxnVanVUQ8RkQHPAhciYN8LEQG5CsoyafYYBGUWxohJYZTGQ7ozCMZk5rJ69UWyPmNRlqgi2eYA1Eg==
   dependencies:
     koa2-swagger-ui "^5.7.0"
     statuses "^2.0.1"

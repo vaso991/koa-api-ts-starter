@@ -1,11 +1,12 @@
 import { StatusCodes } from 'http-status-codes';
 import { RouterContext } from 'koa-router';
 import { UniqueViolationError } from 'objection';
-import { IUser } from './User.Schema';
+import { IUser, IUserOptional } from './User.Schema';
 import { UserService } from './User.Service';
 export class UserController {
   public static async getAllUsers(ctx: RouterContext) {
-    ctx.body = await UserService.getAllUsers();
+    const { query } : { query: IUserOptional } = ctx;
+    ctx.body = await UserService.getAllUsers(query);
   }
 
   public static async getUserById(ctx: RouterContext) {
