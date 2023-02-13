@@ -30,7 +30,7 @@
     "pg": "^8.8.0",
     "pino-http": "^8.3.3",
     "reflect-metadata": "^0.1.13",
-    "zod": "^3.20.2"
+    "zod": "^3.20.6"
   },
   "devDependencies": {
     "@types/dotenv-flow": "^3.2.0",
