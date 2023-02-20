@@ -23,7 +23,7 @@ pnpm create koa-ts-api app-name
 - [`koa-router`](https://github.com/ZijianHe/koa-router)
 - [`Zod`](https://github.com/colinhacks/zod)
 - [`objection + knex`](https://github.com/vincit/objection.js)
-- [`koa-pino-logger`](https://github.com/pinojs/koa-pino-logger)
+- [`pino-http`](https://github.com/pinojs/pino-http)
 - [`koa-router-zod-swagger`](https://github.com/vaso991/koa-router-zod-swagger)
 
 ## Setup
