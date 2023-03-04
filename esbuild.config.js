@@ -1,8 +1,8 @@
 const esbuild = require('esbuild')
 const fs = require('fs');
 
-const migrations = fs.readdirSync('./src/db/migrations').map(f =>`./src/db/migrations/${f}`);
-console.log({migrations});
+const migrations = fs.readdirSync('./src/db/migrations').map(f => `./src/db/migrations/${f}`);
+console.log({ migrations });
 
 const config = {
   outdir: 'dist',
@@ -15,8 +15,8 @@ const config = {
 }
 
 Promise.all([
-  {entryPoints: ['./src/Server.ts'], outbase: 'src'},
-  {entryPoints: [...migrations], outbase: 'src/db'},
+  { entryPoints: ['./src/Server.ts'], outbase: 'src' },
+  { entryPoints: [...migrations], outbase: 'src/db' },
 ].map(c => esbuild.build({
   ...config,
   ...c,

@@ -7,10 +7,14 @@ const router = new Router({
   prefix: '/users',
 });
 
-router.get('/', ZodValidator({
-  summary: 'Get users list',
-  query: UserUpdateSchema,
-}), UserController.getAllUsers);
+router.get(
+  '/',
+  ZodValidator({
+    summary: 'Get users list',
+    query: UserUpdateSchema,
+  }),
+  UserController.getAllUsers,
+);
 
 router.get(
   '/:id',

@@ -7,7 +7,7 @@ import { DBError } from 'objection';
 export const ErrorMiddleware =
   () => (context: ParameterizedContext, next: Next) =>
     next().catch((error) => {
-      const response = errorFormatter(error);
+      const response = errorFormatter(error as Error);
       context.body = response;
       context.status = response.status || 500;
     });
@@ -37,8 +37,9 @@ const errorFormatter = (error: Error): IFormattedError => {
     errorResponse.status = error.status || 500;
     if (error.response) {
       errorResponse.status = error.response.status;
-      if (error.response.data && error.response.data.message) {
-        errorResponse.message = error.response.data.message;
+      const responseData = error.response.data as Record<string, string>;
+      if (responseData && responseData.message) {
+        errorResponse.message = responseData.message;
       }
     }
   } else if (error instanceof ZodError) {

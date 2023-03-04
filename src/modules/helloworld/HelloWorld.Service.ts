@@ -1,5 +1,5 @@
 export class HelloWorldService {
-  public static async GetHelloWorld() {
+  public static GetHelloWorld() {
     return {
       hello: 'world',
     };

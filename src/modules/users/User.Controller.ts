@@ -5,7 +5,7 @@ import { IUser, IUserOptional } from './User.Schema';
 import { UserService } from './User.Service';
 export class UserController {
   public static async getAllUsers(ctx: RouterContext) {
-    const { query } : { query: IUserOptional } = ctx;
+    const { query }: { query: IUserOptional } = ctx;
     ctx.body = await UserService.getAllUsers(query);
   }
 

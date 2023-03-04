@@ -25,9 +25,7 @@
     },
     "include": [
       "./src/**/*",
-      ".eslintrc.js",
-      "knexfile.ts",
-      "esbuild.config.js"
+      "./tests/**/*",
     ],
     "linterOptions": {
       "exclude": []

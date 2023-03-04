@@ -1,26 +1,25 @@
-import Knex from 'knex';
+import knex, { Knex } from 'knex';
 import { Model } from 'objection';
 import path from 'path';
 import { AppEnv } from '../App.Env';
-
 export class Db {
-  private static knexInstance: ReturnType<typeof Knex>;
-  public static async init(): Promise<ReturnType<typeof Knex>> {
+  private static knexInstance: Knex;
+  public static async init(): Promise<Knex> {
     if (Db.knexInstance) {
       return Db.knexInstance;
     }
-    const knex = Knex({
+    const _knex = knex({
       client: 'pg',
       connection: AppEnv.DATABASE_URL,
       debug: false,
     });
-    await knex.migrate.latest({
+    await _knex.migrate.latest({
       directory: path.join(__dirname, 'migrations'),
       loadExtensions: ['.ts', '.js'],
     });
-    Model.knex(knex);
-    Db.knexInstance = knex;
-    return knex;
+    Model.knex(_knex);
+    Db.knexInstance = _knex;
+    return _knex;
   }
   public static async get() {
     return Db.init();

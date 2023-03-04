@@ -1,3 +1,5 @@
 dist
 node_modules
 .eslintrc.js
+esbuild.config.js
+knexfile.ts

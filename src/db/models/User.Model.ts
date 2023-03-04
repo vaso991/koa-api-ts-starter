@@ -17,7 +17,7 @@ class User extends timestampPlugin()(Model) {
   }
 
   static createValidator(): Validator {
-      return ObjectionZodValidator(UserSchema, UserUpdateSchema);
+    return ObjectionZodValidator(UserSchema, UserUpdateSchema);
   }
 }
 type IUser = ModelObject<User>;

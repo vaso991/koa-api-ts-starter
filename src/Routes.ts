@@ -26,7 +26,6 @@ router.get('/health', async (ctx) => {
 router.use(HelloWorldRouter.middleware());
 router.use(UserRouter.middleware());
 
-
 router.get(
   '/docs',
   KoaRouterSwagger(router, {
@@ -42,6 +41,5 @@ router.get(
     },
   }),
 );
-
 
 export { router as AppRoutes };

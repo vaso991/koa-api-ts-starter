@@ -44,6 +44,7 @@ export const LoggerMiddleware = (options?: PinoOptions) => {
         ctx.res.body = ctx.response.body;
       })
       .catch((error) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         ctx.res.err = error;
         throw error;
       });
@@ -67,6 +68,7 @@ function ResSerializer(res: ServerResponse<IncomingMessage>) {
   const _res: { [key: string]: any } = {};
   _res.statusCode = res.statusCode;
   // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   _res.body = res.body;
   // _res.headers = res.getHeaders();
   return _res;

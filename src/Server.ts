@@ -8,7 +8,6 @@ import { ErrorMiddleware } from './middlewares/Error.Middleware';
 import { Db } from './db';
 import { AppEnv } from './App.Env';
 
-
 class Server {
   private app: Koa;
   constructor() {
@@ -17,7 +16,7 @@ class Server {
 
   public static async init() {
     const server = new Server();
-    Db.init();
+    await Db.init();
     server.initializeMiddlewares();
     server.initializeRoutes();
     server.start();
@@ -28,7 +27,7 @@ class Server {
     this.app.use(
       cors({
         credentials: true,
-      })
+      }),
     );
     this.app.use(bodyParser());
     this.app.use(ErrorMiddleware());
@@ -43,8 +42,8 @@ class Server {
   private start() {
     return this.app.listen(AppEnv.PORT, () => {
       console.log(`Server started on port http://localhost:${AppEnv.PORT}`);
-    })
+    });
   }
 }
 
-Server.init();
+void Server.init();
