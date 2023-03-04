@@ -1604,6 +1604,11 @@ combined-stream@^1.0.8:
   dependencies:
     delayed-stream "~1.0.0"
 
+command-exists@^1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/command-exists/-/command-exists-1.2.9.tgz#c50725af3808c8ab0260fd60b01fbfa25b954f69"
+  integrity sha512-LTQ/SGc+s0Xc0Fu5WaKnR0YiygZkm9eKFvyS+fRsU7/ZWFF8ykFM6Pc9aCVf1+xasOOZpO3BAVgVrKvsqKHV7w==
+
 commander@^9.1.0:
   version "9.5.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-9.5.0.tgz#bc08d1eb5cedf7ccb797a96199d41c7bc3e60d30"
@@ -4471,6 +4476,14 @@ yargs@^17.3.1:
     string-width "^4.2.3"
     y18n "^5.0.5"
     yargs-parser "^21.1.1"
+
+yarpm@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/yarpm/-/yarpm-1.2.0.tgz#5baaf5589f6237426cf76f812296dcf9b4254f55"
+  integrity sha512-gxN4Ali09uey8EpLfbYG+bTXf1hF6TA5oAXFPpKi5Nt5aztXU9AIEksXE0lpuvC50vL4De/KIeP8JXgYOZ8KbQ==
+  dependencies:
+    command-exists "^1.2.9"
+    cross-spawn "^7.0.3"
 
 ylru@^1.2.0:
   version "1.3.2"

@@ -25,7 +25,9 @@ export class Db {
 
   public static destroy() {
     console.log('Closing db connection...');
-    return Db.knexInstance.destroy();
+    if (Db.knexInstance) {
+      return Db.knexInstance.destroy();
+    }
   }
 
   public static async get() {
