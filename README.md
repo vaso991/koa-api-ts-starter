@@ -25,6 +25,7 @@ pnpm create koa-ts-api app-name
 - [`objection + knex`](https://github.com/vincit/objection.js)
 - [`pino-http`](https://github.com/pinojs/pino-http)
 - [`koa-router-zod-swagger`](https://github.com/vaso991/koa-router-zod-swagger)
+- [`jest`](https://github.com/facebook/jest) and [`supertest`](https://github.com/ladjs/supertest)
 
 ## Setup
 ```
