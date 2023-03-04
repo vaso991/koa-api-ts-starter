@@ -5,13 +5,16 @@ import { ObjectionZodValidator } from '../../utils/ObjectionZodValidator';
 
 class User extends timestampPlugin()(Model) {
   static tableName = 'Users';
+
   static timestamp = true;
+
   static virtualAttributes = ['fullName'];
 
   id: string;
   email!: string;
   firstName: string;
   lastName: string;
+
   get fullName(): string {
     return this.firstName + ' ' + this.lastName;
   }

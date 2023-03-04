@@ -17,6 +17,7 @@ export class UserService {
   public static async updateUser(id: string, user: IUser): Promise<User> {
     return await User.query().patchAndFetchById(id, user);
   }
+
   public static async deleteUser(id: string) {
     return await User.query().deleteById(id).throwIfNotFound();
   }

@@ -4,6 +4,7 @@ import path from 'path';
 import { AppEnv } from '../App.Env';
 export class Db {
   private static knexInstance: Knex;
+
   public static async init(): Promise<Knex> {
     if (Db.knexInstance) {
       return Db.knexInstance;
@@ -21,6 +22,12 @@ export class Db {
     Db.knexInstance = _knex;
     return _knex;
   }
+
+  public static destroy() {
+    console.log('Closing db connection...');
+    return Db.knexInstance.destroy();
+  }
+
   public static async get() {
     return Db.init();
   }

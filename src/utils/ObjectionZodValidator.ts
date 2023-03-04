@@ -4,11 +4,13 @@ import { AnyZodObject } from 'zod';
 class ObjectionZodValidatorClass extends Validator {
   insertZodSchema: AnyZodObject;
   updateZodSchema?: AnyZodObject;
+
   constructor(insertZodSchema: AnyZodObject, updateZodSchema?: AnyZodObject) {
     super();
     this.insertZodSchema = insertZodSchema;
     this.updateZodSchema = updateZodSchema;
   }
+
   validate({ json, options }: ValidatorArgs): Pojo {
     if (options.patch) {
       if (this.updateZodSchema) {

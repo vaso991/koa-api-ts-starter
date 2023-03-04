@@ -18,8 +18,9 @@ module.exports = {
       },
       rules: {
         'quotes': [2, 'single', { avoidEscape: true }],
-        '@typescript-eslint/no-inferrable-types': 'off',
+        'lines-between-class-members': ["error", "always", { "exceptAfterSingleLine": true }],
         'no-unused-vars': 'error',
+        '@typescript-eslint/no-inferrable-types': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-unused-vars': 'off',
         '@typescript-eslint/no-var-requires': 'off',
