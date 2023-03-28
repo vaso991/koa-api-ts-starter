@@ -58,3 +58,7 @@ test/**/*.js.map
 
 uploads
 dist
+
+yarn.lock
+pnpm-lock.yaml
+package-lock.json
