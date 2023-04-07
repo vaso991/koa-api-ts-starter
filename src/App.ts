@@ -64,6 +64,7 @@ export class App {
   public start() {
     return this.koaApp.listen(AppEnv.PORT, () => {
       console.log(`Server started on port http://localhost:${AppEnv.PORT}`);
+      console.log(`Docs started on port http://localhost:${AppEnv.PORT}/docs`);
     });
   }
 }
