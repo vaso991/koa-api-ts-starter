@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import cors from '@koa/cors';
-import { AppRoutes } from './Routes';
+import { AppRoutes, ApiRoutes } from './Routes';
 import { LoggerMiddleware } from './middlewares/Logger.Middleware';
 import { ErrorMiddleware } from './middlewares/Error.Middleware';
 import { Db } from './db';
@@ -42,6 +42,7 @@ export class App {
 
   private initializeRoutes() {
     this.koaApp.use(AppRoutes.allowedMethods()).use(AppRoutes.middleware());
+    this.koaApp.use(ApiRoutes.allowedMethods()).use(ApiRoutes.middleware());
     this.koaApp.use((ctx) => ctx.throw(404));
   }
 
