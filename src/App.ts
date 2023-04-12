@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import cors from '@koa/cors';
+import helmet from 'koa-helmet';
 import { AppRoutes, ApiRoutes } from './Routes';
 import { LoggerMiddleware } from './middlewares/Logger.Middleware';
 import { ErrorMiddleware } from './middlewares/Error.Middleware';
@@ -30,6 +31,13 @@ export class App {
 
   private initializeMiddlewares() {
     this.koaApp.keys = [AppEnv.COOKIE_KEY];
+    this.koaApp.use(
+      helmet({
+        contentSecurityPolicy: false,
+        crossOriginResourcePolicy: false,
+        dnsPrefetchControl: false,
+      }),
+    );
     this.koaApp.use(
       cors({
         credentials: true,

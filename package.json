@@ -30,6 +30,7 @@
     "knex": "^2.4.2",
     "koa": "^2.14.1",
     "koa-bodyparser": "^4.4.0",
+    "koa-helmet": "^7.0.2",
     "koa-ratelimit": "^5.0.1",
     "koa-router": "^12.0.0",
     "koa-router-zod-swagger": "^1.0.13",
