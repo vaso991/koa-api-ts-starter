@@ -10,10 +10,7 @@ const PINO_OPTIONS: PinoOptions = {
     `,"time":"${format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx")}"`,
   autoLogging: {
     ignore(req: IncomingMessage) {
-      return (
-        ['/api/health'].includes(req.url || '') ||
-        req.headers.accept !== 'application/json'
-      );
+      return ['/health'].includes(req.url || '') || !!req.url?.startsWith('/docs');
     },
   },
   wrapSerializers: false,
