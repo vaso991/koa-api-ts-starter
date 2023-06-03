@@ -12,7 +12,9 @@
     "lint-staged": "lint-staged",
     "lint": "eslint .",
     "jest": "jest",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "migration:make": "knex migrate:make -x ts",
+    "create:module": "node scripts/createModule.js"
   },
   "keywords": [],
   "author": "",
