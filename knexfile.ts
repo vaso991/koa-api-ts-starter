@@ -8,6 +8,9 @@ const config: Knex.Config = {
     extension: 'ts',
     directory: './src/db/migrations',
   },
+  seeds: {
+    directory: './src/db/seeds',
+  },
 };
 
 module.exports = config;

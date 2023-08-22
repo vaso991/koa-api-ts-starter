@@ -1,27 +1,19 @@
-import { Model, ModelObject, Validator } from 'objection';
+import { Model, ModelObject } from 'objection';
 import { timestampPlugin } from 'objection-timestamps';
-import { UserSchema, UserUpdateSchema } from '../../modules/users/User.Schema';
-import { ObjectionZodValidator } from '../../utils/ObjectionZodValidator';
 
-class User extends timestampPlugin()(Model) {
+class UserModel extends timestampPlugin()(Model) {
   static tableName = 'Users';
 
   static timestamp = true;
 
-  static virtualAttributes = ['fullName'];
-
   id: string;
-  email!: string;
-  firstName: string;
-  lastName: string;
-
-  get fullName(): string {
-    return this.firstName + ' ' + this.lastName;
-  }
-
-  static createValidator(): Validator {
-    return ObjectionZodValidator(UserSchema, UserUpdateSchema);
-  }
+  email: string;
+  password: string;
+  updated_at: string;
+  created_at: string;
 }
-type IUser = ModelObject<User>;
-export { User, IUser };
+
+type UserModelType = ModelObject<UserModel>;
+export default UserModel;
+export { UserModel };
+export type { UserModelType };

@@ -1,25 +1,25 @@
 import Router from 'koa-router';
-import RateLimit from 'koa-ratelimit';
-import IORedis from 'ioredis';
-import { HelloWorldRouter } from './modules/helloworld/HelloWorld.Router';
-import { UserRouter } from './modules/users/User.Router';
-import { HealthRouter } from './modules/health/Health.Router';
-import { RouterSwagger } from './utils/RouterSwagger';
+import { HealthRouter } from './modules/health/health.router';
+import { RouterSwagger } from './utils/router.swagger';
+import { AuthRouter } from '@App/modules/auth/auth.router';
+import KoaRatelimit from 'koa-ratelimit';
+import { redisClient } from './utils/redis.client';
+import { CrudRouter } from './modules/crud/crud.router';
 
 const router = new Router();
 const apiRouter = new Router();
 
 apiRouter.use(
-  RateLimit({
+  KoaRatelimit({
     driver: 'redis',
-    db: new IORedis(),
+    db: redisClient,
     duration: 60 * 1000,
     max: 100,
     throw: true,
   }),
 );
-apiRouter.use(HelloWorldRouter.middleware());
-apiRouter.use(UserRouter.middleware());
+apiRouter.use(AuthRouter.middleware());
+apiRouter.use(CrudRouter.middleware());
 
 router.use(HealthRouter.middleware());
 router.get('/docs', RouterSwagger(apiRouter));

@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import { HealthController } from './Health.Controller';
+import { HealthController } from './health.controller';
 
 const router = new Router({
   prefix: '/health',

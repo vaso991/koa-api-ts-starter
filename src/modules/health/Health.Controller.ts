@@ -1,8 +1,12 @@
 import { RouterContext } from 'koa-router';
-import { Db } from '../../db';
+import { Db } from '@App/db';
 import { StatusCodes } from 'http-status-codes';
 
 export class HealthController {
+  /**
+   * Application healthcheck.
+   * Check if database connection is still alive.
+   */
   public static async checkHealth(ctx: RouterContext) {
     const knex = await Db.get();
     try {

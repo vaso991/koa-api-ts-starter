@@ -11,4 +11,4 @@ COPY --from=build /usr/app/package*.json .
 COPY --from=build /usr/app/dist .
 COPY --from=build /usr/app/node_modules ./node_modules
 EXPOSE 3000
-CMD [ "node", "Server.js" ]
+CMD [ "node", "server.js" ]

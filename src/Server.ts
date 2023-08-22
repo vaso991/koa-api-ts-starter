@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { App } from './App';
+import { App } from './app';
 
 const init = async () => {
   const app = await App.init();
