@@ -1,6 +1,7 @@
 import 'reflect-metadata'; // Reimported for jest
 import Koa from 'koa';
 import koaBody from 'koa-body';
+import koaQs from 'koa-qs';
 import cors from '@koa/cors';
 import helmet from 'koa-helmet';
 import { AppRoutes, ApiRoutes } from './routes';
@@ -50,6 +51,7 @@ export class App {
         credentials: true,
       }),
     );
+    koaQs(this.koaApp);
     this.koaApp.use(koaBody());
     this.koaApp.use(ErrorMiddleware());
     this.koaApp.use(LoggerMiddleware());

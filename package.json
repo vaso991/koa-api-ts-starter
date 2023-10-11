@@ -34,6 +34,7 @@
     "koa": "^2.14.1",
     "koa-body": "^6.0.1",
     "koa-helmet": "^7.0.2",
+    "koa-qs": "^3.0.0",
     "koa-ratelimit": "^5.0.1",
     "koa-router": "^12.0.0",
     "koa-router-zod-swagger": "^1.1.0",
