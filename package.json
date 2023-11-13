@@ -60,7 +60,7 @@
     "@types/lodash": "^4.14.195",
     "@types/node": "^20.5.2",
     "@types/supertest": "^2.0.12",
-    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^5.60.1",
     "esbuild": "^0.19.3",
     "esbuild-plugin-path-alias": "^1.0.7",
